@@ -63,8 +63,7 @@ class arrayGroupBy {
 			// group the column if there is no filter of if the filter equals
 			// the specified element within the column
 			if ($filter == '' || $filter == $value) {
-				$tmp = [$value => $this->filter($column, $value)];
-				$result = $result + $tmp;
+				$result = $result + [$value => $this->filter($column, $value)];
 			}
 		}
 
