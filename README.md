@@ -31,6 +31,7 @@ $src = [
 * groups all array elements by the column specified
 * see the next section for filter application
 
+<ins>Code</ins>
 ```bash
 <?php
 require_once("arrayGroupBy.php");
@@ -41,7 +42,7 @@ $a = new arrayGroupBy($src);
 print_r($a->list('department'));
 ```
 
-Output
+<ins>Output</ins>
 ```bash
 Array
 (
@@ -129,6 +130,7 @@ Array
 ## Example List with Filter
 * A filter can be specified to grab only those elements that meet the filter
 
+<ins>Code</ins>
 ```bash
 <?php
 require_once("arrayGroupBy.php");
@@ -139,7 +141,7 @@ $a = new arrayGroupBy($src);
 print_r($a->list('department', 'Operations'));
 ```
 
-Output
+<ins>Output</ins>
 ```bash
 Array
 (
