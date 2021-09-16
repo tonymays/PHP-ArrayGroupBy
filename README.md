@@ -27,7 +27,9 @@ $src = [
 ```
 
 ## Example List
-* test1.php
+* public function list(string $column, string $filter = '') : array
+* groups all array elements by the column specified
+* see the next section for filter application
 
 ```bash
 <?php
@@ -125,7 +127,7 @@ Array
 ```
 
 ## Example List with Filter
-* test2.php
+* A filter can be specified to grab only those elements that meet the filter
 
 ```bash
 <?php
