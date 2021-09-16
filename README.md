@@ -27,7 +27,8 @@ $src = [
 ```
 
 ## Example List
-test1.php
+* test1.php
+
 ```bash
 <?php
 require_once("arrayGroupBy.php");
@@ -58,7 +59,6 @@ Array
                     [salary] => 39000
                 )
         )
-
     [Marketing] => Array
         (
             [0] => Array
@@ -82,7 +82,6 @@ Array
                     [salary] => 52000
                 )
         )
-
     [Operations] => Array
         (
             [0] => Array
@@ -106,7 +105,6 @@ Array
                     [salary] => 115000
                 )
         )
-
     [Sales] => Array
         (
             [0] => Array
@@ -123,6 +121,48 @@ Array
                     [salary] => 45000
                 )
         )
+)
+```
 
+## Example List with Filter
+* test2.php
+
+```bash
+<?php
+require_once("arrayGroupBy.php");
+
+/* Place copy of src data here */
+
+$a = new arrayGroupBy($src);
+print_r($a->list('department', 'Operations'));
+```
+
+Output
+```bash
+Array
+(
+    [Operations] => Array
+        (
+            [0] => Array
+                (
+                    [name] => Connor
+                    [department] => Operations
+                    [salary] => 58000
+                )
+
+            [1] => Array
+                (
+                    [name] => Frank
+                    [department] => Operations
+                    [salary] => 75000
+                )
+
+            [2] => Array
+                (
+                    [name] => Sarah
+                    [department] => Operations
+                    [salary] => 115000
+                )
+        )
 )
 ```
