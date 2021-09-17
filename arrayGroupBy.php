@@ -3,17 +3,18 @@ declare(strict_types = 1);
 
 class arrayGroupBy {
 	private $array = [];
+	private $types = [];
 
 	// ---- class constructor ----
 	public function __construct(array $array) {
-		// set the array given
 		$this->setArray($array);
+		$this->types = ['sum', 'count', 'avg'];
 	}
 
 	// ---- class destructor ----
 	public function __destruct() {
-		// null out the array private variable
 		$this->array = null;
+		$this->types = null;
 	}
 
 	// ---- setArray ----
@@ -72,64 +73,19 @@ class arrayGroupBy {
 	// ---- sum ----
 	// sum the array by $column and then filter the arrau by $filter
 	public function sum(string $sumColumn, string $groupByColumn = '', string $filter = '') : array {
-		if (!$this->isColumnNumeric($sumColumn)) {
-			throw new Exception('critical error: sum column ' . $sumColumn . ' is not a numeric column');
-		}
-
-		if ($sumColumn == $groupByColumn) {
-			throw new Exception('critical error: sum column and group by column cannot be the same');
-		}
-
-		$result = [];
-		$list = $this->list($groupByColumn, $filter);
-
-		foreach($list as $key=>$value) {
-			$result = $result + [$key=>$this->aggregate("sum", $value, $sumColumn)];
-		}
-
-		return $result;
+		return $this->doAggregation('sum', $sumColumn, $groupByColumn, $filter);
 	}
 
 	// ---- count ----
 	// count the array by $column and then filter the arrau by $filter
 	public function count(string $countColumn, string $groupByColumn = '', string $filter = '') : array {
-		if (!$this->isColumnNumeric($countColumn)) {
-			throw new Exception('critical error: sum column ' . $countColumn . ' is not a numeric column');
-		}
-
-		if ($countColumn == $groupByColumn) {
-			throw new Exception('critical error: sum column and group by column cannot be the same');
-		}
-
-		$result = [];
-		$list = $this->list($groupByColumn, $filter);
-
-		foreach($list as $key=>$value) {
-			$result = $result + [$key=>$this->aggregate("count", $value, $countColumn)];
-		}
-
-		return $result;
+		return $this->doAggregation('count', $countColumn, $groupByColumn, $filter);
 	}
 
 	// ---- count ----
 	// count the array by $column and then filter the arrau by $filter
 	public function avg(string $avgColumn, string $groupByColumn = '', string $filter = '') : array {
-		if (!$this->isColumnNumeric($avgColumn)) {
-			throw new Exception('critical error: sum column ' . $avgColumn . ' is not a numeric column');
-		}
-
-		if ($avgColumn == $groupByColumn) {
-			throw new Exception('critical error: sum column and group by column cannot be the same');
-		}
-
-		$result = [];
-		$list = $this->list($groupByColumn, $filter);
-
-		foreach($list as $key=>$value) {
-			$result = $result + [$key=>$this->aggregate("avg", $value, $avgColumn)];
-		}
-
-		return $result;
+		return $this->doAggregation('avg', $avgColumn, $groupByColumn, $filter);
 	}
 
 	// ---- filter ----
@@ -142,6 +98,40 @@ class arrayGroupBy {
 			}
 		}
 		return array_values($result);
+	}
+
+	// ---- doAggregation ----
+	private function doAggregation(string $type, string $column, string $groupByColumn = '', string $filter = '') {
+		if (!in_array($type, $this->types)) {
+			throw new Exception('critical error: unknown aggregation type ' . $type . ' specified');
+		}
+
+		if (!$this->isColumnNumeric($column)) {
+			throw new Exception('critical error: sum column ' . $column . ' is not a numeric column');
+		}
+
+		if ($column == $groupByColumn) {
+			throw new Exception('critical error: sum column and group by column cannot be the same');
+		}
+
+		$result = [];
+		$list = $this->list($groupByColumn, $filter);
+
+		foreach($list as $key=>$value) {
+			switch ($type) {
+				case "sum":
+					$result = $result + [$key=>$this->aggregate("sum", $value, $column)];
+					break;
+				case "count":
+					$result = $result + [$key=>$this->aggregate("count", $value, $column)];
+					break;
+				case "avg":
+					$result = $result + [$key=>$this->aggregate("avg", $value, $column)];
+					break;
+			}
+		}
+
+		return $result;
 	}
 
 	// ---- aggregate ----
@@ -158,6 +148,7 @@ class arrayGroupBy {
 				foreach($array as $key=>$value) {
 					$result += 1;
 				}
+				break;
 			case "avg":
 				$sum = 0.0;
 				$count = 0.0;
