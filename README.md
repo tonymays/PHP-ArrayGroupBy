@@ -10,7 +10,7 @@ type declarations
 ```
 
 ## Example Data
-You this data in all your tests
+You can use this data in all your tests or you can create your own test array as long as it is a string based multi-dimensional array
 ```
 $src = [
 	['name'=>'Jake', 'department'=>'Marketing', 'salary'=>'61000'],
