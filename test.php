@@ -15,7 +15,7 @@ $src = [
 ];
 
 $a = new arrayGroupBy($src);
-$runTest = 9;
+$runTest = 1;
 
 if ($runTest == 1 ) print_r($a->list('department'));
 if ($runTest == 2 ) print_r($a->list('department', "Operations"));

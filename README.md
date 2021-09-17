@@ -227,7 +227,7 @@ Array
 )
 ```
 
-## Other Functions without Examples
+## Other Functions
 * Count
 ```
 * public function count(string $countColumn, string $groupByColumn = '', string $filter = '') : array
