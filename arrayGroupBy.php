@@ -73,7 +73,7 @@ class arrayGroupBy {
 	// sum the array by $column and then filter the arrau by $filter
 	public function sum(string $sumColumn, string $groupByColumn = '', string $filter = '') : array {
 		if (!$this->isColumnNumeric($sumColumn)) {
-			throw new Exception('critical error: sum column ' . $column . ' is not a numeric column');
+			throw new Exception('critical error: sum column ' . $sumColumn . ' is not a numeric column');
 		}
 
 		if ($sumColumn == $groupByColumn) {
@@ -85,6 +85,27 @@ class arrayGroupBy {
 
 		foreach($list as $key=>$value) {
 			$result = $result + [$key=>$this->aggregate("sum", $value, $sumColumn)];
+		}
+
+		return $result;
+	}
+
+	// ---- count ----
+	// count the array by $column and then filter the arrau by $filter
+	public function count(string $countColumn, string $groupByColumn = '', string $filter = '') : array {
+		if (!$this->isColumnNumeric($countColumn)) {
+			throw new Exception('critical error: sum column ' . $countColumn . ' is not a numeric column');
+		}
+
+		if ($countColumn == $groupByColumn) {
+			throw new Exception('critical error: sum column and group by column cannot be the same');
+		}
+
+		$result = [];
+		$list = $this->list($groupByColumn, $filter);
+
+		foreach($list as $key=>$value) {
+			$result = $result + [$key=>$this->aggregate("count", $value, $countColumn)];
 		}
 
 		return $result;
@@ -110,6 +131,11 @@ class arrayGroupBy {
 			case "sum":
 				foreach($array as $key=>$value) {
 					$result += $value[$aggregateColumn];
+				}
+				break;
+			case "count":
+				foreach($array as $key=>$value) {
+					$result += 1;
 				}
 		}
 		return $result;

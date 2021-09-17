@@ -230,8 +230,10 @@ Array
 ## Other Functions without Examples
 * Count
 ```
+* public function count(string $countColumn, string $groupByColumn = '', string $filter = '') : array
 ```
 
 * Avg
 ```
+* public function avg(string $avgColumn, string $groupByColumn = '', string $filter = '') : array
 ```
