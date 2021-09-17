@@ -170,3 +170,51 @@ Array
         )
 )
 ```
+
+## Example Sum
+* public function sum(string $sumColumn, string $groupByColumn = '', string $filter = '') : array
+* sums the sumColumn for each groupByColumn
+* see the next section for filter application
+
+<ins>Code</ins>
+```bash
+<?php
+require_once("arrayGroupBy.php");
+
+/* Place copy of src data here */
+
+$a = new arrayGroupBy($src);
+print_r($a->sum('salary', 'department'));
+```
+
+<ins>Output</ins>
+```bash
+Array
+(
+    [Accounting] => 114000
+    [Marketing] => 171000
+    [Operations] => 248000
+    [Sales] => 125000
+)
+```
+## Example Sum with Filter
+* A filter can be specified to grab only those elements that meet the filter
+
+<ins>Code</ins>
+```bash
+<?php
+require_once("arrayGroupBy.php");
+
+/* Place copy of src data here */
+
+$a = new arrayGroupBy($src);
+print_r($a->sum('salary', 'department', 'Operations'))
+```
+
+<ins>Output</ins>
+```bash
+Array
+(
+    [Operations] => 248000
+)
+```

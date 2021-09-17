@@ -60,8 +60,6 @@ class arrayGroupBy {
 
 		// group array by column
 		foreach($columns as $key=>$value) {
-			// group the column if there is no filter of if the filter equals
-			// the specified element within the column
 			if ($filter == '' || $filter == $value) {
 				$result = $result + [$value => $this->filter($column, $value)];
 			}
@@ -71,11 +69,23 @@ class arrayGroupBy {
 		return $result;
 	}
 
-	public function sum(string $column, string $groupByColumn = '', string $filter = '') : array {
-		if (!$this->isColumnNumeric($column)) {
-			throw new Exception('critical error: column ' . $column . ' is not a numeric column');
+	public function sum(string $sumColumn, string $groupByColumn = '', string $filter = '') : array {
+		if (!$this->isColumnNumeric($sumColumn)) {
+			throw new Exception('critical error: sum column ' . $column . ' is not a numeric column');
 		}
-		return [];
+
+		if ($sumColumn == $groupByColumn) {
+			throw new Exception('critical error: sum column and group by column cannot be the same');
+		}
+
+		$result = [];
+		$list = $this->list($groupByColumn, $filter);
+
+		foreach($list as $key=>$value) {
+			$result = $result + [$key=>$this->aggregate("sum", $value, $sumColumn)];
+		}
+
+		return $result;
 	}
 
 	// ---- filter ----
@@ -89,6 +99,18 @@ class arrayGroupBy {
 		}
 		return array_values($result);
 	}
+
+	private function aggregate(string $type, array $array, string $sumColumn) : float {
+		$result = 0.0;
+		switch($type) {
+			case "sum":
+				foreach($array as $key=>$value) {
+					$result += $value[$sumColumn];
+				}
+		}
+		return $result;
+	}
+
 
 	// ---- isMultiDimensionalArray ----
 	private function isMultiDimensionalArray(array $array) : bool {
