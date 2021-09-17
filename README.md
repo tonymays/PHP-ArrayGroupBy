@@ -26,6 +26,14 @@ $src = [
 ];
 ```
 
+## Sample Test File
+* test.php
+```
+The test.php file is provided and will allow you to run any and every method within this class
+Add to it ass your please
+Expand this class to meet you specified development needs
+```
+
 ## Example List
 * public function list(string $column, string $filter = '') : array
 * groups all array elements by the column specified
