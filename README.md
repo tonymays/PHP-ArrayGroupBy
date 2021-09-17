@@ -34,7 +34,7 @@ $src = [
 - Expand this class to meet you specified development needs
 ```
 
-## Example List
+## List Method with Code Example
 * public function list(string $column, string $filter = '') : array
 * groups all array elements by the column specified
 * see the next section for filter application
@@ -135,7 +135,7 @@ Array
 )
 ```
 
-## Example List with Filter
+## List Method w/ Filter Code Example
 * A filter can be specified to grab only those elements that meet the filter
 
 <ins>Code</ins>
@@ -179,7 +179,7 @@ Array
 )
 ```
 
-## Example Sum
+## Sum Method with Code Example
 * public function sum(string $sumColumn, string $groupByColumn = '', string $filter = '') : array
 * sums the sumColumn for each groupByColumn
 * see the next section for filter application
@@ -205,7 +205,7 @@ Array
     [Sales] => 125000
 )
 ```
-## Example Sum with Filter
+## Sum Method w/ Filter Code Example
 * A filter can be specified to grab only those elements that meet the filter
 
 <ins>Code</ins>
@@ -227,7 +227,7 @@ Array
 )
 ```
 
-## Other Functions
+## Other Methods
 * Count
 ```
 * public function count(string $countColumn, string $groupByColumn = '', string $filter = '') : array
