@@ -111,6 +111,27 @@ class arrayGroupBy {
 		return $result;
 	}
 
+	// ---- count ----
+	// count the array by $column and then filter the arrau by $filter
+	public function avg(string $avgColumn, string $groupByColumn = '', string $filter = '') : array {
+		if (!$this->isColumnNumeric($avgColumn)) {
+			throw new Exception('critical error: sum column ' . $avgColumn . ' is not a numeric column');
+		}
+
+		if ($avgColumn == $groupByColumn) {
+			throw new Exception('critical error: sum column and group by column cannot be the same');
+		}
+
+		$result = [];
+		$list = $this->list($groupByColumn, $filter);
+
+		foreach($list as $key=>$value) {
+			$result = $result + [$key=>$this->aggregate("avg", $value, $avgColumn)];
+		}
+
+		return $result;
+	}
+
 	// ---- filter ----
 	// filter the array by column name and column value
 	private function filter(string $colName, string $colValue) : array {
@@ -137,6 +158,17 @@ class arrayGroupBy {
 				foreach($array as $key=>$value) {
 					$result += 1;
 				}
+			case "avg":
+				$sum = 0.0;
+				$count = 0.0;
+				foreach($array as $key=>$value) {
+					$sum += $value[$aggregateColumn];
+				}
+				foreach($array as $key=>$value) {
+					$count += 1;
+				}
+				$result = $sum / $count;
+				break;
 		}
 		return $result;
 	}
