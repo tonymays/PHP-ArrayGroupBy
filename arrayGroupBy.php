@@ -69,6 +69,8 @@ class arrayGroupBy {
 		return $result;
 	}
 
+	// ---- sum ----
+	// sum the array by $column and then filter the arrau by $filter
 	public function sum(string $sumColumn, string $groupByColumn = '', string $filter = '') : array {
 		if (!$this->isColumnNumeric($sumColumn)) {
 			throw new Exception('critical error: sum column ' . $column . ' is not a numeric column');
@@ -100,17 +102,18 @@ class arrayGroupBy {
 		return array_values($result);
 	}
 
-	private function aggregate(string $type, array $array, string $sumColumn) : float {
+	// ---- aggregate ----
+	// aggregate the array by column name and column value
+	private function aggregate(string $type, array $array, string $aggregateColumn) : float {
 		$result = 0.0;
 		switch($type) {
 			case "sum":
 				foreach($array as $key=>$value) {
-					$result += $value[$sumColumn];
+					$result += $value[$aggregateColumn];
 				}
 		}
 		return $result;
 	}
-
 
 	// ---- isMultiDimensionalArray ----
 	private function isMultiDimensionalArray(array $array) : bool {

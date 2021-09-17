@@ -21,6 +21,7 @@ if ($runTest == 1 ) print_r($a->list('department'));
 if ($runTest == 2 ) print_r($a->list('department', "Operations"));
 if ($runTest == 3 ) print_r($a->list('salary'));
 if ($runTest == 4 ) print_r($a->list('salary', '58000'));
-
 if ($runTest == 5 ) print_r($a->sum('salary', 'department'));
 if ($runTest == 6 ) print_r($a->sum('salary', 'department', 'Operations'));
+
+
