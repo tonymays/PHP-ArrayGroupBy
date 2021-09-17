@@ -218,3 +218,12 @@ Array
     [Operations] => 248000
 )
 ```
+
+## Other Functions without Examples
+* Count
+```
+```
+
+* Avg
+```
+```
