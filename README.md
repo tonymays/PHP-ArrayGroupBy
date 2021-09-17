@@ -29,9 +29,9 @@ $src = [
 ## Sample Test File
 * test.php
 ```
-The test.php file is provided and will allow you to run any and every method within this class
-Add to it ass your please
-Expand this class to meet you specified development needs
+- The test.php file is provided and will allow you to run any and every method within this class
+- Add to the test file as you see fit
+- Expand this class to meet you specified development needs
 ```
 
 ## Example List
