@@ -26,6 +26,15 @@ $src = [
 ];
 ```
 
+## Class Methods
+* public function setArray(array $array) : void
+* public function getArray() : array
+* public function list(string $column, string $filter = '') : array
+* public function sum(string $sumColumn, string $groupByColumn = '', string $filter = '') : array
+* public function count(string $countColumn, string $groupByColumn = '', string $filter = '') : array
+* public function avg(string $avgColumn, string $groupByColumn = '', string $filter = '') : array
+
+
 ## Sample Test File
 * test.php
 ```
